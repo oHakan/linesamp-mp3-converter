@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { MainRouter } from "./mainRouter";
+import { convertRouter } from "./convertRouter";
 
 export const indexRouter: Router = Router();
 
-indexRouter.use('/main', MainRouter);
+indexRouter.use('/converter', convertRouter);

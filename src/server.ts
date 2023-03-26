@@ -1,4 +1,5 @@
 import express from 'express';
+import bodyParser from 'body-parser';
 import { indexRouter } from './routers';
 
 export default class ExpressServer {
@@ -10,6 +11,10 @@ export default class ExpressServer {
     }
 
     private config(){
+        this.server.use(bodyParser.urlencoded({
+            extended: true
+        }));
+        this.server.use(bodyParser.json());
         this.server.use(indexRouter);
     }
 
