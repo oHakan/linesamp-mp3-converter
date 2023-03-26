@@ -24,10 +24,10 @@ export default class ConvertController {
                 return res.status(404).json({message: 'An error orucced on youtube download service. Please contact with our developers.'});
             }
 
-            return res.send(200).json({message: convertedFilePath});
+            return res.status(200).json({message: convertedFilePath});
         } catch (e) {
             console.log(e);
-            return res.send(404).json({message: e});
+            return res.status(404).json({message: e});
         }
     }
 }
