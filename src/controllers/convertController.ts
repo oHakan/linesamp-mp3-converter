@@ -24,7 +24,7 @@ export default class ConvertController {
                 return res.status(404).json({message: 'An error orucced on youtube download service. Please contact with our developers.'});
             }
 
-            const file = outputPath + validateVideoId + '.mp3';
+            const file = process.env.CLIENT_URL + 'videos/' + validateVideoId + '.mp3';
 
             return res.status(200).json({message: file});
         } catch (e) {

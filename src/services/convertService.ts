@@ -13,16 +13,16 @@ export default class ConvertService {
     private mainLinkPath: string = 'https://www.youtube.com/watch?v=';
     public static fileList: ConvertedFile[] = [];
 
-    public async downloadMp3(videoId: string): Promise <Boolean | String> {
+    public async downloadMp3(videoId: string): Promise <Boolean> {
         try {
             return new Promise((resolve) => {
-                const video = ytdl(this.mainLinkPath + videoId);
+                const video = ytdl(this.mainLinkPath + videoId, {filter: 'audioonly'});
                 const file = outputPath + videoId + '.mp3';
                 const fileExists = this.isFileExists(file);
                 const time = new Date().getTime();
 
                 if(fileExists){
-                    return file;
+                    return resolve(true);
                 }
 
                 const process = video.pipe(fs.createWriteStream(file));
@@ -41,8 +41,6 @@ export default class ConvertService {
                     generatedTime: time,
                     willDeleteTime: time + deleteTime.After30Second,
                 });
-
-                return file;
             });
         } catch (e) {
             console.log(e);
