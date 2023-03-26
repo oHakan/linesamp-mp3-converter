@@ -33,7 +33,7 @@ export default class ConvertService {
                 });
 
                 process.on('close', () => {
-                    return resolve(file);
+                    return resolve(true);
                 })
 
                 ConvertService.fileList.push({

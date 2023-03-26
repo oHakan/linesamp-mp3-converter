@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { outputPath } from "../main";
 import ConvertService from "../services/convertService";
 import { extractVideoID } from "../utils/regex/extract-video-id";
 
@@ -13,7 +14,6 @@ export default class ConvertController {
         try {
             const videoLink = req.body.videoLink;
             const validateVideoId = extractVideoID(videoLink);
-
             if(!validateVideoId) {
                 return res.status(404).json({message: 'Invalid Link!'});
             }
@@ -24,7 +24,9 @@ export default class ConvertController {
                 return res.status(404).json({message: 'An error orucced on youtube download service. Please contact with our developers.'});
             }
 
-            return res.status(200).json({message: convertedFilePath});
+            const file = outputPath + validateVideoId + '.mp3';
+
+            return res.status(200).json({message: file});
         } catch (e) {
             console.log(e);
             return res.status(404).json({message: e});
